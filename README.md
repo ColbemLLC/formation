@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="https://github.com/ColbemLLC.png" width="96" height="96" alt="Colbe" />
+</p>
 
-## Getting Started
+<h1 align="center">Formation</h1>
 
-First, run the development server:
+<p align="center">The public marketing site for Colbe, served at <b>colbe.cc</b>.</p>
+
+## What lives here
+
+- Landing page
+- Documentation and credits
+- Registration and login
+- Maintenance page (shown until launch on 30 Nov 2026, 4:00 PM CAT)
+
+After registration, users continue to `app.colbe.cc/onboarding`. The signed-in product lives in the separate **formations** repo.
+
+## How it fits together
+
+| Surface | Domain | Repo |
+| --- | --- | --- |
+| Marketing, registration, login | `colbe.cc` | formation (this repo) |
+| Signed-in app | `app.colbe.cc` | formations |
+| API | `api.colbe.cc` | featheredleaf |
+
+- The session cookie is shared across `.colbe.cc`, so the app recognizes users who registered here.
+- `proxy.ts` sends visitors who already have a session from `/login` and `/register` to `app.colbe.cc/home`. It only checks that the cookie exists; the app validates the session itself.
+- If the app sends a user back with `?next=` or `?expired=1`, the proxy does not redirect again, which prevents a loop.
+- `proxy.ts` also adds security headers to every response.
+
+## Stack
+
+- Next.js (App Router), TypeScript
+- Tailwind CSS v4
+- Bun
+- Phosphor icons, Instrument Serif, Inter / Geist
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The site runs at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Cross-subdomain cookies do not work on plain `localhost`. To test the handoff to the app locally, use a hosts-file domain such as `colbe.test` and `app.colbe.test`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+- `app/` routes and layouts
+- `packages/ui/` shared UI components (notch nav, gradient wave, and so on)
+- `proxy.ts` signed-in redirect and security headers
+- `app/globals.css` design tokens (blue theme; dark mode uses the `.dark` class)
 
-To learn more about Next.js, take a look at the following resources:
+## Conventions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Shared code lives under `packages/`, not a `lib` folder.
+- Animations and the gradient wave are for the marketing site only.
+- Headings use Instrument Serif; icons are Phosphor, with no emojis.
+- Radius is `rounded-nav` (10px) for buttons and `rounded-card` (14px) for cards.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Each repo deploys on its own. Before shipping, check that the build passes in CI (`bun run build`) and that `babel-plugin-react-compiler` is installed, since `reactCompiler` is enabled.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Proprietary. All rights reserved. The code, designs and assets in this repository may not be copied, reproduced or redistributed without written permission.
