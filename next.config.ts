@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Add your local IP address here (without https:// or port numbers)
+  allowedDevOrigins: ["192.168.8.34"],
 };
 
 export default nextConfig;
