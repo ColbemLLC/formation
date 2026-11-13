@@ -151,3 +151,42 @@ body {
 .notch-nav-viewport::-webkit-scrollbar {
   display: none;
 }
+/* Goo loader */
+.goo-loader {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  filter: url(#goo-filter);
+}
+
+.goo-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 9999px;
+  background: var(--primary);
+}
+
+.goo-dot-1 { animation: goo-left 1.6s ease-in-out infinite; }
+.goo-dot-2 { animation: goo-pulse 1.6s ease-in-out infinite; }
+.goo-dot-3 { animation: goo-right 1.6s ease-in-out infinite; }
+
+@keyframes goo-left {
+  0%, 100% { transform: translateX(-38px); }
+  50% { transform: translateX(0); }
+}
+@keyframes goo-right {
+  0%, 100% { transform: translateX(38px); }
+  50% { transform: translateX(0); }
+}
+@keyframes goo-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goo-dot { animation-duration: 3.2s; }
+}
