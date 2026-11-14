@@ -7,32 +7,42 @@ type Feature = {
   span: "md:col-span-6" | "md:col-span-4" | "md:col-span-8";
 };
 
-// Rows: 6 + 4 | 8 + 4 | 4 (the heading fills the rest of the last row).
+// Rows: 6 + 6 | 4 + 4 + 4 | 4 + 8 | heading (full width).
 const FEATURES: Feature[] = [
   {
-    title: "Guild-based Communities",
-    body: "Create a community for your guild with its own page, members and identity, then grow it your way.",
+    title: "Give Every Guild a Home",
+    body: "Each community gets its own page, member list and identity, so your guild has a place that is clearly yours.",
     span: "md:col-span-6",
   },
   {
-    title: "Announcements",
-    body: "Owners and admins can post announcements that keep every member in the loop.",
+    title: "Reach Every Member",
+    body: "Owners and admins post announcements that keep the whole community in the loop, with nothing buried in chat.",
+    span: "md:col-span-6",
+  },
+  {
+    title: "Keep Discussions Organized",
+    body: "Forums give long conversations room to breathe, so good threads stay easy to find and easy to join.",
+    span: "md:col-span-4",
+  },
+  {
+    title: "Run More Than One Guild",
+    body: "Organizations let you manage several communities from a single dashboard instead of juggling separate setups.",
+    span: "md:col-span-4",
+  },
+  {
+    title: "Learn It in Minutes",
+    body: "Clear documentation walks owners and members through everything the platform does.",
+    span: "md:col-span-4",
+  },
+  {
+    title: "Build Beyond the Browser",
+    body: "Use the public API and the native Windows editor to extend your community past the web.",
     span: "md:col-span-4",
   },
   {
     title: "One Account, Every Colbe Surface",
     body: "Sign in once and use Colbe across the web platform, the API and the native Windows editor. Your account and communities follow you, so there is nothing to set up twice and nothing to keep in sync by hand.",
     span: "md:col-span-8",
-  },
-  {
-    title: "Light & Dark Mode",
-    body: "Every screen is designed to work in both light and dark themes.",
-    span: "md:col-span-4",
-  },
-  {
-    title: "Quick Onboarding",
-    body: "Register with your email, set up your account, and get straight into the platform.",
-    span: "md:col-span-4",
   },
 ];
 
@@ -78,7 +88,7 @@ export function Features() {
             </Cell>
           ))}
 
-          <div className="flex flex-col justify-end text-right md:col-span-8">
+          <div className="flex flex-col justify-end text-right md:col-span-12">
             <h2 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl">
               Built for communities.
               <br />
