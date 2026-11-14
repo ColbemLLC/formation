@@ -1,7 +1,5 @@
 import * as motion from "motion/react-client";
-import Link from "next/link";
 import {
-  ArrowRight,
   BookOpen,
   Buildings,
   ChatsCircle,
@@ -13,7 +11,6 @@ import {
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react";
-import { LOGIN_URL, REGISTER_URL } from "./links";
 
 const ease = [0.25, 1, 0.5, 1] as const;
 const fade = (delay = 0) => ({
@@ -22,10 +19,10 @@ const fade = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease },
 });
 
-const PLATFORMS: { icon: Icon; title: string; text: string }[] = [
-  { icon: Globe, title: "Web", text: "Run your guild from any browser." },
-  { icon: Code, title: "API", text: "Build on top of your community." },
-  { icon: Desktop, title: "Windows editor", text: "Native, fast, built for creators." },
+const PLATFORMS: { icon: Icon; surface: string; text: string }[] = [
+  { icon: Globe, surface: "Web", text: "Run your guild from any browser." },
+  { icon: Code, surface: "API", text: "Build on top of your community." },
+  { icon: Desktop, surface: "Windows editor", text: "Native, fast, built for creators." },
 ];
 
 const ROW_A: { icon: Icon; label: string }[] = [
@@ -88,61 +85,46 @@ export function Hero() {
             {...fade(0.1)}
             className="mt-8 font-[family-name:var(--font-instrument-serif)] text-6xl font-normal leading-[1.02] tracking-tight text-foreground md:text-8xl"
           >
-            Your guild.
+            Start a guild.
             <br />
-            <span className="italic text-foreground/60">Your community.</span>
+            <span className="italic text-foreground/60">Build a world.</span>
           </motion.h1>
 
           <motion.p
             {...fade(0.2)}
             className="mt-6 max-w-xl text-lg leading-8 text-muted-foreground"
           >
-            Create communities, share announcements, and build together, on the
-            web, through the API, or in the native Windows editor.
+            Run communities, post announcements, and build on the web, the API,
+            or the native Windows editor.
           </motion.p>
-
-          <motion.div
-            {...fade(0.3)}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <Link
-              href={REGISTER_URL}
-              className="inline-flex items-center gap-2 rounded-[15px] border-2 border-foreground bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_0_var(--foreground)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
-            >
-              Get Started
-              <ArrowRight weight="bold" className="size-4" />
-            </Link>
-            <Link
-              href={LOGIN_URL}
-              className="rounded-[15px] border-2 border-foreground bg-card px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_0_var(--foreground)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
-            >
-              Sign In
-            </Link>
-          </motion.div>
         </div>
 
-        {/* platform panel: primary bar + card body */}
         <motion.div
-          {...fade(0.4)}
+          {...fade(0.3)}
           className="overflow-hidden rounded-[15px] border-2 border-foreground shadow-[4px_4px_0_0_var(--foreground)]"
         >
-          <div className="border-b-2 border-foreground bg-primary p-4 text-sm font-bold text-primary-foreground">
-            Everywhere you build
-          </div>
-          <div className="bg-card">
-            {PLATFORMS.map(({ icon: I, title, text }) => (
-              <div
-                key={title}
-                className="flex items-center gap-4 border-b-2 border-foreground p-4 last:border-b-0"
-              >
-                <I weight="bold" className="size-6 shrink-0 text-primary" />
-                <div>
-                  <p className="text-sm font-bold text-foreground">{title}</p>
-                  <p className="text-sm text-muted-foreground">{text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <table className="w-full border-collapse text-left text-sm">
+            <caption className="sr-only">Where Colbe runs</caption>
+            <thead>
+              <tr className="border-b-2 border-foreground bg-primary text-primary-foreground">
+                <th scope="col" className="p-4 font-bold">Surface</th>
+                <th scope="col" className="p-4 font-bold">What it does</th>
+              </tr>
+            </thead>
+            <tbody className="bg-card">
+              {PLATFORMS.map(({ icon: I, surface, text }) => (
+                <tr key={surface} className="border-b-2 border-foreground last:border-b-0">
+                  <th scope="row" className="whitespace-nowrap p-4 font-bold text-foreground">
+                    <span className="flex items-center gap-3">
+                      <I weight="bold" className="size-5 shrink-0 text-primary" />
+                      {surface}
+                    </span>
+                  </th>
+                  <td className="border-l-2 border-foreground p-4 text-muted-foreground">{text}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </motion.div>
       </div>
 
