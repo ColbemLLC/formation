@@ -52,18 +52,18 @@ function Marquee({
 }) {
   const loop = [...items, ...items, ...items, ...items];
   return (
-    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+    <div className="overflow-hidden py-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
       <motion.div
-        className="flex w-max gap-3"
+        className="flex w-max gap-4"
         animate={{ x: reverse ? ["-25%", "0%"] : ["0%", "-25%"] }}
         transition={{ duration, ease: "linear", repeat: Infinity }}
       >
         {loop.map(({ icon: I, label }, i) => (
           <span
             key={i}
-            className="flex items-center gap-2 rounded-[15px] border border-border bg-card px-4 py-2.5 text-sm text-muted-foreground"
+            className="flex items-center gap-2 rounded-[15px] border-2 border-foreground bg-card px-4 py-2.5 text-sm font-bold text-foreground shadow-[3px_3px_0_0_var(--foreground)]"
           >
-            <I className="size-4 text-primary" />
+            <I weight="bold" className="size-4 text-primary" />
             {label}
           </span>
         ))}
@@ -75,28 +75,18 @@ function Marquee({
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden font-sans">
-      {/* soft grid + glow background */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 opacity-60 [background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_30%_40%,black_20%,transparent_70%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute left-0 top-0 -z-10 h-80 w-[44rem] -translate-x-1/4 rounded-full bg-primary/20 blur-3xl"
-      />
-
       <div className="mx-auto grid w-full max-w-[1400px] items-center gap-14 px-6 pb-16 pt-28 md:pt-36 lg:grid-cols-[1.3fr_1fr]">
         <div className="flex flex-col items-start text-left">
           <motion.span
             {...fade(0)}
-            className="rounded-full border border-border bg-card px-3 py-1 font-mono text-xs text-muted-foreground"
+            className="rounded-[15px] border-2 border-foreground bg-primary px-3 py-1 font-mono text-xs font-bold text-primary-foreground shadow-[3px_3px_0_0_var(--foreground)]"
           >
             Guild-based community platform
           </motion.span>
 
           <motion.h1
             {...fade(0.1)}
-            className="mt-6 font-[family-name:var(--font-instrument-serif)] text-6xl font-normal leading-[1.02] tracking-tight text-foreground md:text-8xl"
+            className="mt-8 font-[family-name:var(--font-instrument-serif)] text-6xl font-normal leading-[1.02] tracking-tight text-foreground md:text-8xl"
           >
             Your guild.
             <br />
@@ -113,60 +103,53 @@ export function Hero() {
 
           <motion.div
             {...fade(0.3)}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="mt-10 flex flex-wrap items-center gap-4"
           >
             <Link
               href={REGISTER_URL}
-              className="ui-button-gradient-primary group inline-flex items-center gap-2 rounded-[15px] px-6 py-3 text-sm font-semibold text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-[15px] border-2 border-foreground bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_0_var(--foreground)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
             >
               Get Started
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight weight="bold" className="size-4" />
             </Link>
             <Link
               href={LOGIN_URL}
-              className="rounded-[15px] border border-button-secondary-border bg-button-secondary px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-hover"
+              className="rounded-[15px] border-2 border-foreground bg-card px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_0_var(--foreground)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
             >
               Sign In
             </Link>
           </motion.div>
         </div>
 
-        {/* platform panel, accordion-style rows */}
+        {/* platform panel: primary bar + card body */}
         <motion.div
           {...fade(0.4)}
-          className="overflow-hidden rounded-[15px] border border-border bg-background"
+          className="overflow-hidden rounded-[15px] border-2 border-foreground shadow-[4px_4px_0_0_var(--foreground)]"
         >
-          <div className="border-b border-border bg-muted px-4 py-3 font-mono text-xs text-muted-foreground">
+          <div className="border-b-2 border-foreground bg-primary p-4 text-sm font-bold text-primary-foreground">
             Everywhere you build
           </div>
-          {PLATFORMS.map(({ icon: I, title, text }) => (
-            <div
-              key={title}
-              className="flex items-center gap-4 border-b border-border p-4 last:border-b-0"
-            >
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-[15px] border border-border bg-muted">
-                <I className="size-5 text-primary" />
-              </span>
-              <div>
-                <p className="text-sm font-medium text-foreground">{title}</p>
-                <p className="text-sm text-muted-foreground">{text}</p>
+          <div className="bg-card">
+            {PLATFORMS.map(({ icon: I, title, text }) => (
+              <div
+                key={title}
+                className="flex items-center gap-4 border-b-2 border-foreground p-4 last:border-b-0"
+              >
+                <I weight="bold" className="size-6 shrink-0 text-primary" />
+                <div>
+                  <p className="text-sm font-bold text-foreground">{title}</p>
+                  <p className="text-sm text-muted-foreground">{text}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </motion.div>
       </div>
 
-      {/* scrolling feature rows */}
-      <div className="flex flex-col gap-3 pb-16">
+      <div className="flex flex-col gap-2 pb-16">
         <Marquee items={ROW_A} duration={45} />
         <Marquee items={ROW_B} reverse duration={55} />
       </div>
-
-      {/* bottom fade */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background"
-      />
     </section>
   );
 }
