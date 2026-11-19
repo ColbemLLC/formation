@@ -60,9 +60,7 @@ function Plus({ className }: { className: string }) {
 
 function Cell({ span, children }: { span: string; children: ReactNode }) {
   return (
-    <div
-      className={`relative min-h-44 border border-dashed border-border p-6 ${span}`}
-    >
+    <div className={`relative min-h-44 border border-dashed border-border p-6 ${span}`}>
       <Plus className="-left-2 -top-2" />
       <Plus className="-right-2 -top-2" />
       <Plus className="-bottom-2 -left-2" />
@@ -74,25 +72,35 @@ function Cell({ span, children }: { span: string; children: ReactNode }) {
 
 export function Features() {
   return (
-    <section id="features" className="mx-auto w-full max-w-6xl px-6 py-16">
+    <section id="features" className="mx-auto w-full max-w-[1400px] px-6 py-20 md:px-10">
+      <div className="mb-10 flex items-center gap-4">
+        <h2 className="font-mono text-sm uppercase tracking-wider text-foreground">
+          Features
+        </h2>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
       <div className="border border-border p-5">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, i) => (
             <Cell key={f.title} span={f.span}>
-              <h3 className="text-lg font-bold tracking-tight text-foreground">
+              <span className="font-mono text-xs text-muted-foreground">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 text-base font-medium tracking-tight text-foreground">
                 {f.title}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 {f.body}
               </p>
             </Cell>
           ))}
 
-          <div className="flex flex-col justify-end text-right md:col-span-12">
-            <h2 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl">
+          <div className="flex flex-col justify-end py-6 text-right md:col-span-12">
+            <h2 className="font-[family-name:var(--font-instrument-serif)] text-5xl font-normal leading-[1.05] tracking-tight text-foreground md:text-7xl">
               Built for communities.
               <br />
-              Designed for guilds.
+              <span className="italic text-foreground/60">Designed for guilds.</span>
             </h2>
             <p className="ml-auto mt-4 max-w-xl text-base leading-7 text-muted-foreground">
               Colbe gives your guild a home: a community page, announcements and

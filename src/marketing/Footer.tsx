@@ -26,6 +26,7 @@ export function Footer() {
       note=""
       socials={SOCIALS}
       credits={[]}
+      height="70svh"
     />
   );
 }
