@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { LightDark } from "@/packages/ui/light-dark";
 
 const LINKS = [
@@ -8,6 +11,12 @@ const LINKS = [
 ];
 
 export function Footer() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="border-t border-border px-6 py-6 md:px-10">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -29,7 +38,7 @@ export function Footer() {
 
         <div className="flex items-center justify-between gap-4 sm:justify-end">
           <span className="font-mono text-[10px] text-foreground/50">
-            © {new Date().getFullYear()} Colbe
+            © {year} Colbe
           </span>
           <LightDark />
         </div>
