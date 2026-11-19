@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { UsersThree } from "@phosphor-icons/react/dist/ssr";
 import { ColbeMark } from "./ColbeMark";
-import { ReadmePanel } from "./ReadmePanel";
 import { LOGIN_URL, REGISTER_URL } from "./links";
 
 const ease = [0.25, 1, 0.5, 1] as const;
@@ -35,42 +34,40 @@ function HatchedLink({ href, children }: { href: string; children: ReactNode }) 
 
 export function Hero() {
   return (
-    <section className="border-b border-border font-sans">
-      <div className="mx-auto grid w-full max-w-[1400px] lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)]">
-        <div className="relative flex min-h-[34rem] flex-col justify-end overflow-hidden px-6 pb-14 pt-24 md:px-10 lg:min-h-[calc(100svh-4rem)]">
-          <ColbeMark className="absolute left-[8%] top-[6%] size-56 md:left-[12%] md:size-80 lg:top-[12%]" />
+    <section className="relative flex min-h-[34rem] flex-col overflow-hidden border-b border-border pt-14 lg:sticky lg:top-0 lg:h-svh lg:w-[40%] lg:shrink-0 lg:self-start lg:border-b-0">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[repeating-linear-gradient(to_right,var(--foreground)_0_1px,transparent_1px_6px)] opacity-[0.07] [mask-image:linear-gradient(to_top,black,transparent)]"
+      />
+      <ColbeMark className="absolute left-[14%] top-[22%] size-52 md:size-72" />
 
-          <div className="relative z-10 flex flex-col items-start">
-            <motion.span
-              {...fade(0)}
-              className="inline-flex items-center gap-2 rounded-[15px] bg-muted px-3 py-1 text-xs text-muted-foreground"
-            >
-              <UsersThree weight="bold" className="size-3.5" />
-              Guild-based community platform
-            </motion.span>
+      <div className="relative z-10 mt-auto flex flex-col items-start px-6 pb-14 md:px-8">
+        <motion.span
+          {...fade(0)}
+          className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
+        >
+          <UsersThree weight="bold" className="size-3.5" />
+          Guild-based community platform
+        </motion.span>
 
-            <motion.h1
-              {...fade(0.1)}
-              className="mt-6 font-[family-name:var(--font-instrument-serif)] text-5xl font-normal leading-[1.02] tracking-tight text-foreground md:text-7xl"
-            >
-              Start a guild.
-              <br />
-              <span className="italic text-foreground/60">Build a world.</span>
-            </motion.h1>
+        <motion.h1
+          {...fade(0.1)}
+          className="mt-5 font-[family-name:var(--font-instrument-serif)] text-5xl font-normal leading-[1.02] tracking-tight text-foreground xl:text-6xl"
+        >
+          Start a guild.
+          <br />
+          <span className="italic text-foreground/60">Build a world.</span>
+        </motion.h1>
 
-            <motion.div {...fade(0.2)} className="mt-8 flex flex-wrap items-center gap-5">
-              <Link
-                href={REGISTER_URL}
-                className="inline-flex items-center bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-              >
-                Get Started
-              </Link>
-              <HatchedLink href={LOGIN_URL}>Sign In</HatchedLink>
-            </motion.div>
-          </div>
-        </div>
-
-        <ReadmePanel />
+        <motion.div {...fade(0.2)} className="mt-7 flex flex-wrap items-center gap-5">
+          <Link
+            href={REGISTER_URL}
+            className="inline-flex items-center bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Get Started
+          </Link>
+          <HatchedLink href={LOGIN_URL}>Sign In</HatchedLink>
+        </motion.div>
       </div>
     </section>
   );

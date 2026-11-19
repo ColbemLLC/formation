@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   BookOpen,
   Buildings,
@@ -32,7 +32,7 @@ const INCLUDES: { icon: Icon; label: string }[] = [
   { icon: Desktop, label: "Windows editor" },
 ];
 
-function Label({ children }: { children: string }) {
+export function SectionLabel({ children }: { children: string }) {
   return (
     <div className="flex items-center gap-4">
       <h2 className="font-mono text-sm uppercase tracking-wider text-foreground">
@@ -43,76 +43,79 @@ function Label({ children }: { children: string }) {
   );
 }
 
+function Marquee() {
+  const reduce = useReducedMotion();
+  const loop = [...INCLUDES, ...INCLUDES];
+
+  return (
+    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+      <motion.div
+        className="flex w-max"
+        animate={reduce ? undefined : { x: ["0%", "-50%"] }}
+        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+      >
+        {loop.map(({ icon: I, label }, i) => (
+          <span
+            key={`${label}-${i}`}
+            aria-hidden={i >= INCLUDES.length}
+            className="flex shrink-0 items-center gap-2 px-5 text-sm text-foreground/60"
+          >
+            <I weight="bold" className="size-4 shrink-0" />
+            {label}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export function ReadmePanel() {
   const [tab, setTab] = useState(0);
   const active = SURFACES[tab];
   const ActiveIcon = active.icon;
 
   return (
-    <aside className="border-t border-border lg:border-l lg:border-t-0">
-      <div className="flex border-b border-border font-mono text-xs uppercase tracking-wider">
-        <span className="-mb-px flex-1 border-b border-foreground px-6 py-4 text-center text-foreground">
-          Readme
-        </span>
-        <Link
-          href="/docs"
-          className="flex-1 px-6 py-4 text-center text-muted-foreground transition-colors hover:text-foreground"
+    <section className="flex flex-col gap-8 px-6 pb-10 pt-10 md:px-10">
+      <SectionLabel>readme</SectionLabel>
+
+      <p className="text-lg leading-8 text-muted-foreground">
+        Run <strong className="font-medium text-foreground">communities</strong>, post
+        announcements, and build on the web, the API, or the native{" "}
+        <strong className="font-medium text-foreground">Windows editor</strong>.
+      </p>
+
+      <div className="border border-border">
+        <div
+          role="tablist"
+          aria-label="Where Colbe runs"
+          className="flex border-b border-border font-mono text-xs"
         >
-          Docs
-        </Link>
-      </div>
-
-      <div className="flex flex-col gap-10 px-6 py-8 md:px-10">
-        <div className="flex flex-col gap-5">
-          <Label>Readme</Label>
-          <p className="leading-7 text-muted-foreground">
-            Run communities, post announcements, and build on the web, the API,
-            or the native Windows editor.
-          </p>
-
-          <div className="overflow-hidden rounded-[15px] border border-border">
-            <div role="tablist" aria-label="Where Colbe runs" className="flex border-b border-border text-sm">
-              {SURFACES.map((s, i) => (
-                <button
-                  key={s.surface}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === i}
-                  onClick={() => setTab(i)}
-                  className={`px-4 py-3 transition-colors ${
-                    tab === i
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {s.surface}
-                </button>
-              ))}
-            </div>
-            <div role="tabpanel" className="flex items-center gap-3 p-5 text-sm">
-              <ActiveIcon weight="bold" className="size-5 shrink-0 text-primary" />
-              <span className="text-foreground">{active.text}</span>
-            </div>
-          </div>
+          {SURFACES.map((s, i) => (
+            <button
+              key={s.surface}
+              type="button"
+              role="tab"
+              aria-selected={tab === i}
+              onClick={() => setTab(i)}
+              className={`-mb-px px-4 py-3 transition-colors ${
+                tab === i
+                  ? "border-b border-foreground text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {s.surface}
+            </button>
+          ))}
         </div>
-
-        <div className="flex flex-col gap-5">
-          <Label>Includes</Label>
-          <ul className="grid grid-cols-2 gap-px border border-dashed border-border">
-            {INCLUDES.map(({ icon: I, label }, i) => (
-              <li key={label} className="flex flex-col gap-3 border border-dashed border-border p-4">
-                <span className="font-mono text-xs text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="flex items-center gap-2 text-sm text-foreground">
-                  <I weight="bold" className="size-4 shrink-0 text-primary" />
-                  {label}
-                </span>
-              </li>
-            ))}
-          </ul>
+        <div role="tabpanel" className="flex items-center gap-3 px-4 py-4 font-mono text-sm">
+          <ActiveIcon weight="bold" className="size-4 shrink-0 text-primary" />
+          <span className="text-foreground">{active.text}</span>
         </div>
       </div>
-    </aside>
+
+      <div className="border-y border-border py-5">
+        <Marquee />
+      </div>
+    </section>
   );
 }
